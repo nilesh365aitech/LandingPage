@@ -17,31 +17,24 @@ import solar from "./assets/12.png"
 const Header = () => {
   return (
     <header className="bg-gray-900 text-white py-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Voice Bots</h1>
-        <nav>
-          <ul className="flex space-x-4">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <div className="container mx-auto flex justify-center items-center">
+      <h1 className="text-2xl font-bold">Voice Bots</h1>
+    </div>
+  </header>
+  
   );
 };
 
 // Voice Bot Tile
 const VoiceBotTile = ({ name, description, image, href }) => {
   return (
-    <a href={href} className="block bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="h-48">
-        <img src={image} alt={name} className="w-full h-full object-cover" />
+    <a href={href} className="block  bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="h-48 ">
+        <img src={image} alt={name} className="w-full h-full " />
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-bold mb-2">{name}</h3>
-        <p className="text-gray-600">{description}</p>
+        <h3 className="text-xl font-semibold mb-2">{name}</h3>
+        <p className="text-gray-700">{description}</p>
       </div>
     </a>
   );
@@ -197,12 +190,12 @@ const VoiceBotSection = () => {
   ];
 
   return (
-    <section className="py-12">
-      <div className="container mx-auto">
-        <h2 className="text-2xl text-center font-bold mb-8">Voice Bots</h2>
+    <section className="py-12  md:px-0 px-7">
+      <div className="container  mx-auto">
+        {/* <h2 className="text-2xl text-center font-bold mb-8">Voice Bots</h2> */}
         {voiceBots.map((category, index) => (
           <div key={index}>
-            <h3 className="text-xl font-bold mb-4">{category.category}</h3>
+            <h3 className="text-xl font-bold my-7 mb-4">{category.category}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
               {category.bots.map((bot, botIndex) => (
                 <VoiceBotTile
