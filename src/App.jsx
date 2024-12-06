@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ShoppingCart, Eye, ChevronLeft, ChevronRight, X, Calendar, Play } from 'lucide-react';
+import HeroBanner from './components/banner';
 import healthcare from "./assets/3.png"
 import english from "./assets/5.png"
 import playschoool from "./assets/4.png"
@@ -13,230 +15,481 @@ import fitness from "./assets/14.png"
 import hr from "./assets/11.png"
 import solar from "./assets/12.png"
 import realestate2 from "./assets/realestate2.png"
+import axios from 'axios';
+
+const featuresMapping = {
+  "Healthcare": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info",
+    "Provide general info"
+  ],
+  "Play School": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info",
+    "Provide general info"
+  ],
+  "English Examiner": [
+    "Conduct interview",
+    "Analyze the skills",
+    "Send results to the user"
+  ],
+  "Legal": [
+    "Client Intake & Lead Qualification",
+    "Appointment Scheduling",
+    "Answering FAQs",
+    "Status Updates"
+  ],
+  "Real Estate 1": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info",
+    "Filter preferred properties"
+  ],
+  "Real Estate 2": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info"
+  ],
+  "Buy a Car": [
+    "Lead Qualification and Data Collection",
+    "Scheduling Appointments",
+    "Quoting and Pre-Evaluation",
+    "Frequently Asked Questions",
+    "Direct users to a human agent for complex or specific issues",
+    "Follow-Up"
+  ],
+  "Sell a Car": [
+    "Inquiry Handling",
+    "Scheduling and Appointments",
+    "Provide real-time availability",
+    "Recommend cars based on customer preferences",
+    "Lead Collection",
+    "Follow-Up"
+  ],
+  "Hotel": [
+    "Booking and Reservation Management",
+    "Check-In and Check-Out Assistance",
+    "General Inquiry Handling",
+    "Event and Conference Management",
+    "Services and amenities",
+    "Personalized Recommendations",
+    "Real-Time Notifications"
+  ],
+  "Restaurant": [
+    "Reservation Management",
+    "Order Taking and Pick-Up Scheduling",
+    "Menu Assistance",
+    "Event Bookings",
+    "Customer Support and FAQs",
+    "Real-Time Updates",
+    "Follow-Up"
+  ],
+  "Fitness": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info",
+    "Call forwarding"
+  ],
+  "Retail": [
+    "Answering FAQs",
+    "Product Information",
+    "Account Management",
+    "Order Tracking",
+    "Order Assistance",
+    "Product Suggestions",
+    "Returns & Refund Assistance"
+  ],
+  "Solar": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info",
+    "Provide product info"
+  ],
+  "HR Interview Scheduling and Conducting": [
+    "Check availability",
+    "Book appointment",
+    "Send follow-up email",
+    "Send follow-up SMS",
+    "Extract user info"
+  ],
+  "HR Interview Conduct": [
+    "Conduct interview",
+    "Analytics of interview",
+    "Send to HR/User"
+  ]
+};
 
 
-// Header
-const Header = () => {
+
+const BotPurchaseModal = ({ isOpen, onClose, bot }) => {
+  if (!isOpen || !bot) return null;
+
+  const features = featuresMapping[bot.name] || [];
+
   return (
-    <header className="bg-gray-900 text-white py-4">
-    <div className="container mx-auto flex justify-center items-center">
-      <h1 className="text-2xl font-bold">Voice Bots</h1>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4">
+        {/* Header */}
+        <div className="flex justify-between items-center p-6 border-b">
+          <h2 className="text-2xl font-bold text-gray-800">{bot.name}</h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
+
+        {/* Video Section */}
+        <div className="p-6 border-b">
+          <div className="relative w-full bg-gray-900 rounded-lg" style={{ paddingBottom: '56.25%' }}>
+            {bot.videoUrl && (
+              <iframe
+                width="100%"
+                height="100%"
+                src={bot.videoUrl}
+                title={`${bot.name} Demo Video`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0"
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="p-6 border-b">
+          <h3 className="text-lg font-semibold mb-3 text-gray-800">Description</h3>
+          <p className="text-gray-600 leading-relaxed">{bot.description}</p>
+        </div>
+
+        {/* Key Features */}
+        <div className="p-6 border-b">
+          <h3 className="text-lg font-semibold mb-3 text-gray-800">Key Features</h3>
+          <ul className="list-disc ml-5 text-gray-600">
+            {features.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-2xl font-bold text-gray-800">${bot.price}</div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800 font-semibold transition-colors">
+              <Calendar className="w-5 h-5" />
+              Schedule Meeting
+            </button>
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              Buy Now
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </header>
-  
-  );
-};
-
-// Voice Bot Tile
-const VoiceBotTile = ({ name, description, image, href }) => {
-  return (
-    <a href={href} className="block  bg-white shadow-md rounded-md overflow-hidden">
-      <div className="h-48 ">
-        <img src={image} alt={name} className="w-full h-full " />
-      </div>
-      <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2">{name}</h3>
-        <p className="text-gray-700">{description}</p>
-      </div>
-    </a>
   );
 };
 
 
 
-// Voice Bot Section
-const VoiceBotSection = () => {
-  const voiceBots = [
+const HorizontalBotCatalog = () => {
+  // State for modal
+  const [selectedBot, setSelectedBot] = useState(null);
+
+  // Sample data
+  const categories = [
     {
-      category: 'Healthcare',
+      name: "Healthcare",
       bots: [
         {
-          name: 'Healthcare',
-          description: 'Check availability, book appointments, send follow-up emails, and extract user information.',
-          image: healthcare, // Correctly imported image
-          href: 'https://www.fiverr.com/s/YR6pq3z',
+          id: 1,
+          name: "Healthcare",
+          description: "Check availability, book appointments, send follow-up emails, and extract user information.",
+          price: 299,
+          image: healthcare,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_1"
+        }
+      ]
+    },
+    {
+      name: "Education",
+      bots: [
+        {
+          id: 2,
+          name: "English Examiner",
+          description: "Conduct interviews, analyze skills, send results, and follow up with users.",
+          price: 199,
+          image: english,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_2"
+        },
+        {
+          id: 3,
+          name: "Play School",
+          description: "Simplifies managing preschool interactions by handling appointment bookings, follow-ups via email and SMS, user information collection.",
+          price: 249,
+          image: playschoool,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_3"
         },
         
       ]
     },
     {
-      category: 'Education',
+      name: "Legal",
       bots: [
         {
-          name: 'English Examiner',
-          description: 'Conduct interviews, analyze skills, send results, and follow up with users.',
-          image: english,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 4,
+          name: "Legal",
+          description: "Handle client intake, schedule appointments, update status, and manage FAQs.",
+          price: 349,
+          image: legal,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_4"
+        }
+      ]
+    },
+    {
+      name: "Real Estate",
+      bots: [
+        {
+          id: 5,
+          name: "Real Estate 1",
+          description: "Check availability, book appointments, filter preferred properties in realtime, and send follow-up SMS.",
+          price: 399,
+          image: realestate,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_5"
         },
         {
-          name: 'Play School',
-          description: 'Simplifies managing preschool interactions by handling appointment bookings, follow-ups via email and SMS, user information collection.',
-          image: playschoool,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 6,
+          name: "Real Estate 2",
+          description: "Check availability, book appointments and send follow-up SMS.",
+          price: 359,
+          image: realestate2,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_6"
         }
       ]
     },
     {
-      category: 'Legal',
+      name: "Car Dealers",
       bots: [
         {
-          name: 'Legal',
-          description: 'Handle client intake, schedule appointments, update status, and manage FAQs.',
-          image: legal,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
-        }
-      ]
-    },
-    {
-      category: 'Real Estate',
-      bots: [
-        {
-          name: 'Real Estate 1',
-          description: 'Check availability, book appointments, filter preferred properties in realtime, and send follow-up SMS.',
-          image: realestate,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 7,
+          name: "Buy a car",
+          description: "Qualify leads, schedule appointments, recommend cars, and assist with inquiries.",
+          price: 299,
+          image: Buycar,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_7"
         },
         {
-          name: 'Real Estate 2',
-          description: 'Check availability, book appointments and send follow-up SMS.',
-          image: realestate2,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 8,
+          name: "Sell a car",
+          description: "Qualify leads, schedule appointments, recommend cars, and assist with inquiries to sell a car.",
+          price: 329,
+          image: sellcar,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_8"
         }
       ]
     },
     {
-      category: 'Car Dealers',
+      name: "Hospitality",
       bots: [
         {
-          name: 'Buy a car',
-          description: 'Qualify leads, schedule appointments, recommend cars, and assist with inquiries.',
-          image: Buycar,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 9,
+          name: "Hotel",
+          description: "Booking and Reservation Management, Check-In and Check-Out Assistance, General Inquiry Handling, Event and Conference Management, Services and Amenities, Personalized Recommendations, Real-Time Notifications.",
+          price: 399,
+          image: hotel,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_9"
         },
         {
-          name: 'Sell a car',
-          description: 'Qualify leads, schedule appointments, recommend cars, and assist with inquiries to sell a car.',
-          image: sellcar,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 10,
+          name: "Restaurant",
+          description: "Reservation Management, Order Taking and Pick-Up Scheduling, Menu Assistance, Event Bookings, Customer Support and FAQs, Real-Time Updates, Follow-Up.",
+          price: 249,
+          image: restaurant,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_10"
         }
       ]
     },
     {
-      category: 'Hospitality',
+      name: "Fitness",
       bots: [
         {
-          name: 'Hotel',
-          description: 'Booking and Reservation Management, Check-In and Check-Out Assistance, General Inquiry Handling, Event and Conference Management, Services and Amenities, Personalized Recommendations, Real-Time Notifications.',
-          image: hotel,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
-        },
-        {
-          name: 'Restaurant',
-          description: 'Reservation Management, Order Taking and Pick-Up Scheduling, Menu Assistance, Event Bookings, Customer Support and FAQs, Real-Time Updates, Follow-Up.',
-          image: restaurant,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 11,
+          name: "Fitness",
+          description: "Check availability, book appointments, send follow-up emails or SMS, extract user info, and enable call forwarding.",
+          price: 349,
+          image: fitness,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_11"
         }
       ]
     },
     {
-      category: 'Fitness',
+      name: "Retail",
       bots: [
         {
-          name: 'Fitness',
-          description: 'Check availability, book appointments, send follow-up emails or SMS, extract user info, and enable call forwarding.',
-          image: fitness,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 12,
+          name: "Retail",
+          description: "Answering FAQs, providing product information, account management, order tracking, order assistance, product suggestions, and support for returns and refunds.",
+          price: 199,
+          image: retail,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_12"
         }
       ]
     },
     {
-      category: 'Retail',
+      name: "Solar",
       bots: [
         {
-          name: 'Retail',
-          description: 'Answering FAQs, providing product information, account management, order tracking, order assistance, product suggestions, and support for returns and refunds.',
-          image: retail,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 13,
+          name: "Solar",
+          description: "Check availability, book appointments, send follow-up emails or SMS, extract user info, and provide detailed product information.",
+          price: 299,
+          image: solar,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_13"
         }
       ]
     },
     {
-      category: 'Solar',
+      name: "HR",
       bots: [
         {
-          name: 'Solar',
-          description: 'Check availability, book appointments, send follow-up emails or SMS, extract user info, and provide detailed product information.',
-          image: solar,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
+          id: 14,
+          name: "HR Interview Scheduling and Conducting",
+          description: "Check availability, book appointments, send follow-up emails or SMS, and extract user info.",
+          price: 269,
+          image: hr,  // Replace with actual image path
+          videoUrl: "https://www.youtube.com/embed/sample_video_14"
         }
-      ]
-    },
-    {
-      category: 'HR',
-      bots: [
-        {
-          name: 'HR Interview Scheduling and Conducting',
-          description: 'Check availability, book appointments, send follow-up emails or SMS, and extract user info.',
-          image: hr,
-          href: 'https://www.fiverr.com/s/YR6pq3z'
-        },
-       
       ]
     }
-    
   ];
+  
+  
+
+  const scroll = (direction, categoryName) => {
+    const container = document.getElementById(`scroll-${categoryName}`);
+    const scrollAmount = 800;
+    if (container) {
+      const scrollPosition = direction === 'left'
+        ? container.scrollLeft - scrollAmount
+        : container.scrollLeft + scrollAmount;
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
-    <section className="py-12  md:px-0 px-7">
-      <div className="container  mx-auto">
-        {/* <h2 className="text-2xl text-center font-bold mb-8">Voice Bots</h2> */}
-        {voiceBots.map((category, index) => (
-          <div key={index}>
-            <h3 className="text-xl font-bold my-7 mb-4">{category.category}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
-              {category.bots.map((bot, botIndex) => (
-                <VoiceBotTile
-                  key={`${index}-${botIndex}`}
-                  name={bot.name}
-                  description={bot.description}
-                  image={bot.image}
-                  href={bot.href}
-                />
+    <>
+    <HeroBanner/>
+    <div className="min-h-screen bg-gray-50 p-8">
+      {/* <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
+        AI Voice Bots Marketplace
+      </h1> */}
+
+      {categories.map((category) => (
+        <div key={category.name} className="mb-16 md:ml-auto -ml-4">
+          <h2 className="text-2xl font-semibold mb-6 text-gray-700 px-4">
+            {category.name}
+          </h2>
+
+          <div className="relative">
+            {/* Scroll Left Button */}
+            <button 
+              onClick={() => scroll('left', category.name)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+            >
+              <ChevronLeft className="w-6 h-6 text-gray-600" />
+            </button>
+
+            {/* Horizontal Scrolling Container */}
+            <div 
+              id={`scroll-${category.name}`}
+              className="flex overflow-x-auto gap-6 px-12 pb-4 scrollbar-hide"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {category.bots.map((bot) => (
+                <div 
+                  key={bot.id} 
+                  className="flex-none w-72 bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
+                >
+                  <img 
+                    src={bot.image} 
+                    alt={bot.name}
+                    className="w-full h-40 object-cover"
+                  />
+                  
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      {bot.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 h-12 overflow-hidden">
+                      {bot.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between mt-4">
+                      <span className="text-xl font-bold text-gray-800">
+                        ${bot.price}
+                      </span>
+                      <div className="flex gap-2">
+                        <button 
+                          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
+                          aria-label="View details"
+                          onClick={() => setSelectedBot(bot)}
+                        >
+                          <Eye className="w-4 h-4 text-gray-600" />
+                        </button>
+                        <button 
+                          className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                          onClick={() => setSelectedBot(bot)}
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Buy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
+
+            {/* Scroll Right Button */}
+            <button 
+              onClick={() => scroll('right', category.name)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+            >
+              <ChevronRight className="w-6 h-6 text-gray-600" />
+            </button>
           </div>
-        ))}
-      </div>
-    </section>
-  );
-};
+        </div>
+      ))}
 
-// Footer
-const Footer = () => {
-  return (
-    <footer className="bg-gray-900 text-white py-8">
-      <div className="container mx-auto flex justify-between items-center">
-        <p>&copy; 2023 Voice Bots. All rights reserved.</p>
-        <nav>
-          <ul className="flex space-x-4">
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-          </ul>
-        </nav>
-      </div>
-    </footer>
-  );
-};
-
-// App
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <VoiceBotSection />
-      <Footer />
+      {/* Purchase Modal */}
+      <BotPurchaseModal 
+        isOpen={!!selectedBot}
+        onClose={() => setSelectedBot(null)}
+        bot={selectedBot}
+      />
     </div>
+    </>
   );
 };
 
-export default App;
+export default HorizontalBotCatalog;
