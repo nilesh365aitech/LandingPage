@@ -8,9 +8,11 @@ import Buycar from "./assets/13.png"
 import sellcar from "./assets/7.png"
 import hotel from "./assets/8.png"
 import restaurant from "./assets/9.png"
+import retail from "./assets/10.png"
 import fitness from "./assets/14.png"
-import retail from "./assets/11.png"
+import hr from "./assets/11.png"
 import solar from "./assets/12.png"
+import realestate2 from "./assets/realestate2.png"
 
 
 // Header
@@ -28,7 +30,7 @@ const Header = () => {
 // Voice Bot Tile
 const VoiceBotTile = ({ name, description, image, href }) => {
   return (
-    <a href={href} className="block  bg-white shadow-md rounded-lg overflow-hidden">
+    <a href={href} className="block  bg-white shadow-md rounded-md overflow-hidden">
       <div className="h-48 ">
         <img src={image} alt={name} className="w-full h-full " />
       </div>
@@ -52,7 +54,7 @@ const VoiceBotSection = () => {
           name: 'Healthcare',
           description: 'Check availability, book appointments, send follow-up emails, and extract user information.',
           image: healthcare, // Correctly imported image
-          href: '#',
+          href: 'https://www.fiverr.com/s/YR6pq3z',
         },
         
       ]
@@ -64,13 +66,13 @@ const VoiceBotSection = () => {
           name: 'English Examiner',
           description: 'Conduct interviews, analyze skills, send results, and follow up with users.',
           image: english,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         },
         {
           name: 'Play School',
           description: 'Simplifies managing preschool interactions by handling appointment bookings, follow-ups via email and SMS, user information collection.',
           image: playschoool,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -81,7 +83,7 @@ const VoiceBotSection = () => {
           name: 'Legal',
           description: 'Handle client intake, schedule appointments, update status, and manage FAQs.',
           image: legal,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -92,13 +94,13 @@ const VoiceBotSection = () => {
           name: 'Real Estate 1',
           description: 'Check availability, book appointments, filter preferred properties in realtime, and send follow-up SMS.',
           image: realestate,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         },
         {
           name: 'Real Estate 2',
           description: 'Check availability, book appointments and send follow-up SMS.',
-          image: realestate,
-          href: '#'
+          image: realestate2,
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -109,13 +111,13 @@ const VoiceBotSection = () => {
           name: 'Buy a car',
           description: 'Qualify leads, schedule appointments, recommend cars, and assist with inquiries.',
           image: Buycar,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         },
         {
           name: 'Sell a car',
           description: 'Qualify leads, schedule appointments, recommend cars, and assist with inquiries to sell a car.',
           image: sellcar,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -126,13 +128,13 @@ const VoiceBotSection = () => {
           name: 'Hotel',
           description: 'Booking and Reservation Management, Check-In and Check-Out Assistance, General Inquiry Handling, Event and Conference Management, Services and Amenities, Personalized Recommendations, Real-Time Notifications.',
           image: hotel,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         },
         {
           name: 'Restaurant',
           description: 'Reservation Management, Order Taking and Pick-Up Scheduling, Menu Assistance, Event Bookings, Customer Support and FAQs, Real-Time Updates, Follow-Up.',
           image: restaurant,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -143,7 +145,7 @@ const VoiceBotSection = () => {
           name: 'Fitness',
           description: 'Check availability, book appointments, send follow-up emails or SMS, extract user info, and enable call forwarding.',
           image: fitness,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -154,7 +156,7 @@ const VoiceBotSection = () => {
           name: 'Retail',
           description: 'Answering FAQs, providing product information, account management, order tracking, order assistance, product suggestions, and support for returns and refunds.',
           image: retail,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -165,7 +167,7 @@ const VoiceBotSection = () => {
           name: 'Solar',
           description: 'Check availability, book appointments, send follow-up emails or SMS, extract user info, and provide detailed product information.',
           image: solar,
-          href: '#'
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         }
       ]
     },
@@ -173,17 +175,12 @@ const VoiceBotSection = () => {
       category: 'HR',
       bots: [
         {
-          name: 'HR Interview Scheduling',
+          name: 'HR Interview Scheduling and Conducting',
           description: 'Check availability, book appointments, send follow-up emails or SMS, and extract user info.',
-          image: '/hr-scheduling.jpg',
-          href: '#'
+          image: hr,
+          href: 'https://www.fiverr.com/s/YR6pq3z'
         },
-        {
-          name: 'HR Interview Conducting',
-          description: 'Conduct interviews, analyze interview results, and send updates to HR or users.',
-          image: '/hr-conducting.jpg',
-          href: '#'
-        }
+       
       ]
     }
     
