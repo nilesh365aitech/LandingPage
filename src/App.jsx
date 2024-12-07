@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingCart, Eye, ChevronLeft, ChevronRight, X, Calendar, Play } from 'lucide-react';
-import HeroBanner from './components/banner';
+import HeroBanner from "./components/banner";
 import healthcare from "./assets/3.png"
 import english from "./assets/5.png"
 import playschoool from "./assets/4.png"
@@ -16,6 +16,7 @@ import hr from "./assets/11.png"
 import solar from "./assets/12.png"
 import realestate2 from "./assets/realestate2.png"
 import axios from 'axios';
+
 
 const ScheduleMeetingModal = ({ isOpen, onClose, bot, mode }) => {
   const [formData, setFormData] = useState({
@@ -54,7 +55,8 @@ const ScheduleMeetingModal = ({ isOpen, onClose, bot, mode }) => {
         window.location.href = 'https://www.fiverr.com/s/420erVl';
       } else {
         // For schedule meeting, just close the modal
-        alert('Meeting scheduled successfully!');
+        // alert('Meeting scheduled successfully!');
+        window.location.href = 'https://calendly.com/projects-365aitech/30min';
         onClose();
       }
     } catch (error) {
@@ -573,7 +575,7 @@ const HorizontalBotCatalog = () => {
 
   return (
     <>
-  
+  {/* <Navbar/> */}
     <HeroBanner/>
     <div className="min-h-screen bg-gray-50 p-8">
       {/* <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
