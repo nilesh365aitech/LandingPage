@@ -17,6 +17,143 @@ import solar from "./assets/12.png"
 import realestate2 from "./assets/realestate2.png"
 import axios from 'axios';
 
+const ScheduleMeetingModal = ({ isOpen, onClose, bot, mode }) => {
+  const [formData, setFormData] = useState({
+    customerName: '',
+    companyName: '',
+    email: '',
+    phoneNumber: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Prepare data for webhook
+      const webhookData = {
+        ...formData,
+        botName: bot.name,
+        botPrice: bot.price,
+        mode: mode
+      };
+
+      // Send data to webhook
+      const response = await axios.post('https://hook.eu2.make.com/rl3339ixkzqotny7zj3orkrdiaww2mra', webhookData);
+      
+      // Different actions based on mode
+      if (mode === 'buy') {
+        // Redirect to Fiverr link
+        window.location.href = 'https://www.fiverr.com/s/420erVl';
+      } else {
+        // For schedule meeting, just close the modal
+        alert('Meeting scheduled successfully!');
+        onClose();
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Failed to submit. Please try again.');
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg w-full max-w-md p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">
+            {mode === 'buy' ? 'Purchase' : 'Schedule Meeting'}
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          >
+            <X className="w-6 h-6 text-gray-600" />
+          </button>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="customerName" className="block text-sm font-medium text-gray-700">
+              Customer Name
+            </label>
+            <input
+              type="text"
+              id="customerName"
+              name="customerName"
+              required
+              value={formData.customerName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-500 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">
+              Company Name
+            </label>
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-500 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              required
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+            />
+          </div>
+          
+          <div className="pt-4">
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+            >
+              {mode === 'buy' ? 'Purchase' : 'Schedule Meeting'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 const featuresMapping = {
   "Healthcare": [
     "Check availability",
@@ -136,77 +273,115 @@ const featuresMapping = {
 
 
 const BotPurchaseModal = ({ isOpen, onClose, bot }) => {
+  const [activeModal, setActiveModal] = useState(null);
+
   if (!isOpen || !bot) return null;
 
   const features = featuresMapping[bot.name] || [];
 
+  const handleScheduleMeeting = () => {
+    setActiveModal('schedule');
+  };
+
+  const handleBuyNow = () => {
+    setActiveModal('buy');
+  };
+
+  const closeModals = () => {
+    setActiveModal(null);
+    onClose();
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4">
-        {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-800">{bot.name}</h2>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <X className="w-6 h-6 text-gray-600" />
-          </button>
-        </div>
-
-        {/* Video Section */}
-        <div className="p-6 border-b">
-          <div className="relative w-full bg-gray-900 rounded-lg" style={{ paddingBottom: '56.25%' }}>
-            {bot.videoUrl && (
-              <iframe
-                width="100%"
-                height="100%"
-                src={bot.videoUrl}
-                title={`${bot.name} Demo Video`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0"
-              />
-            )}
+    <>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto m-4">
+          {/* Header */}
+          <div className="flex justify-between items-center p-6 border-b">
+            <h2 className="text-2xl font-bold text-gray-800">{bot.name}</h2>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="w-6 h-6 text-gray-600" />
+            </button>
           </div>
-        </div>
 
-        {/* Description */}
-        <div className="p-6 border-b">
-          <h3 className="text-lg font-semibold mb-3 text-gray-800">Description</h3>
-          <p className="text-gray-600 leading-relaxed">{bot.description}</p>
-        </div>
+          {/* Video Section */}
+          <div className="p-6 border-b">
+            <div className="relative w-full bg-gray-900 rounded-lg" style={{ paddingBottom: '56.25%' }}>
+              {bot.videoUrl && (
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={bot.videoUrl}
+                  title={`${bot.name} Demo Video`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0"
+                />
+              )}
+            </div>
+          </div>
 
-        {/* Key Features */}
-        <div className="p-6 border-b">
-          <h3 className="text-lg font-semibold mb-3 text-gray-800">Key Features</h3>
-          <ul className="list-disc ml-5 text-gray-600">
-            {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        </div>
+          {/* Description */}
+          <div className="p-6 border-b">
+            <h3 className="text-lg font-semibold mb-3 text-gray-800">Description</h3>
+            <p className="text-gray-600 leading-relaxed">{bot.description}</p>
+          </div>
 
-        {/* Action Buttons */}
-        <div className="p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-2xl font-bold text-gray-800">${bot.price}</div>
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800 font-semibold transition-colors">
-              <Calendar className="w-5 h-5" />
-              Schedule Meeting
-            </button>
-            <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors">
-              <ShoppingCart className="w-5 h-5" />
-              Buy Now
-            </button>
+          {/* Key Features */}
+          <div className="p-6 border-b">
+            <h3 className="text-lg font-semibold mb-3 text-gray-800">Key Features</h3>
+            <ul className="list-disc ml-5 text-gray-600">
+              {features.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-2xl font-bold text-gray-800">${bot.price}</div>
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <button 
+                onClick={handleScheduleMeeting}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800 font-semibold transition-colors"
+              >
+                <Calendar className="w-5 h-5" />
+                Schedule Meeting
+              </button>
+              <button 
+                onClick={handleBuyNow}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                Buy Now
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Schedule Meeting Modal */}
+      <ScheduleMeetingModal 
+        isOpen={activeModal === 'schedule'}
+        onClose={closeModals}
+        bot={bot}
+        mode="schedule"
+      />
+
+      {/* Buy Now Modal */}
+      <ScheduleMeetingModal 
+        isOpen={activeModal === 'buy'}
+        onClose={closeModals}
+        bot={bot}
+        mode="buy"
+      />
+    </>
   );
 };
-
 
 
 const HorizontalBotCatalog = () => {
@@ -398,6 +573,7 @@ const HorizontalBotCatalog = () => {
 
   return (
     <>
+  
     <HeroBanner/>
     <div className="min-h-screen bg-gray-50 p-8">
       {/* <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
