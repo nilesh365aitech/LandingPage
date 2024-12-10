@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Eye, ChevronLeft, ChevronRight, X, Calendar, Play } from 'lucide-react';
+import { 
+  ShoppingCart, 
+  Eye, 
+  ChevronLeft, 
+  ChevronRight, 
+  X, 
+  Calendar, 
+  Star, 
+  Globe 
+} from 'lucide-react';
 import HeroBanner from "./components/banner";
 import healthcare from "./assets/3.png"
 import english from "./assets/5.png"
@@ -17,6 +26,7 @@ import solar from "./assets/12.png"
 import realestate2 from "./assets/realestate2.png"
 import axios from 'axios';
 
+// Keep the existing ScheduleMeetingModal and BotPurchaseModal components as they were
 
 const ScheduleMeetingModal = ({ isOpen, onClose, bot, mode }) => {
   const [formData, setFormData] = useState({
@@ -390,7 +400,7 @@ const HorizontalBotCatalog = () => {
   // State for modal
   const [selectedBot, setSelectedBot] = useState(null);
 
-  // Sample data
+  // Sample data (keep the existing categories and bots data)
   const categories = [
     {
       name: "Healthcare",
@@ -557,8 +567,6 @@ const HorizontalBotCatalog = () => {
     }
   ];
   
-  
-
   const scroll = (direction, categoryName) => {
     const container = document.getElementById(`scroll-${categoryName}`);
     const scrollAmount = 800;
@@ -575,99 +583,128 @@ const HorizontalBotCatalog = () => {
 
   return (
     <>
-  {/* <Navbar/> */}
-    <HeroBanner/>
-    <div className="min-h-screen bg-gray-50 p-8">
-      {/* <h1 className="text-3xl font-bold text-center mb-12 text-gray-800">
-        AI Voice Bots Marketplace
-      </h1> */}
+      <HeroBanner/>
+      <div className="bg-gray-50   p-8">
+        {categories.map((category) => (
+          <div key={category.name} className="max-w-7xl  mx-auto mb-16">
+            {/* Category Header */}
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900">{category.name}</h2>
+              {/* <p className="text-gray-600 mt-1">AI voice bots specialized for {category.name.toLowerCase()} services</p> */}
+            </div>
 
-      {categories.map((category) => (
-        <div key={category.name} className="mb-16 md:ml-auto -ml-4">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-700 px-4">
-            {category.name}
-          </h2>
+            <div className="relative">
+              {/* Scroll Left Button */}
+              <button 
+                onClick={() => scroll('left', category.name)}
+                className="absolute -left-9  md:-left-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-600" />
+              </button>
 
-          <div className="relative">
-            {/* Scroll Left Button */}
-            <button 
-              onClick={() => scroll('left', category.name)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Horizontal Scrolling Container */}
-            <div 
-              id={`scroll-${category.name}`}
-              className="flex overflow-x-auto gap-6 px-12 pb-4 scrollbar-hide"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {category.bots.map((bot) => (
-                <div 
-                  key={bot.id} 
-                  className="flex-none w-72 bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200"
-                >
-                  <img 
-                    src={bot.image} 
-                    alt={bot.name}
-                    className="w-full h-40 object-cover"
-                  />
-                  
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                      {bot.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4 h-12 overflow-hidden">
-                      {bot.description}
-                    </p>
+              {/* Horizontal Scrolling Container */}
+              <div 
+                id={`scroll-${category.name}`}
+                className="flex overflow-x-auto gap-6 scrollbar-hide"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {category.bots.map((bot) => (
+                  <div 
+                    key={bot.id} 
+                    className="flex-none w-80 md:w-[22rem] bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+                  >
+                    {/* Bot Image with Rating */}
+                    <div className="relative">
+                      <img 
+                        src={bot.image} 
+                        alt={bot.name}
+                        className="w-full h-48 object-cover"
+                      />
+                      {/* <div className="absolute top-4 right-4 bg-white rounded-full px-3 py-1 flex items-center shadow-sm">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="ml-1 text-sm font-medium">4.5</span>
+                        <span className="ml-1 text-sm text-gray-500">(120)</span>
+                      </div> */}
+                    </div>
                     
-                    <div className="flex items-center justify-between mt-4">
-                      <span className="text-xl font-bold text-gray-800">
-                        ${bot.price}
-                      </span>
-                      <div className="flex gap-2">
-                        <button 
-                          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-                          aria-label="View details"
-                          onClick={() => setSelectedBot(bot)}
-                        >
-                          <Eye className="w-4 h-4 text-gray-600" />
-                        </button>
-                        <button 
-                          className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                          onClick={() => setSelectedBot(bot)}
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Buy
-                        </button>
+                    {/* Bot Info */}
+                    <div className="p-6">
+                      {/* Header */}
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900 mb-1">{bot.name}</h3>
+                          {/* <p className="text-sm text-gray-600">by 365 AI Tech</p> */}
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                        {bot.description}
+                      </p>
+
+                      {/* Integrations */}
+                      <div className="mb-4">
+                        <p className="text-xs font-medium text-gray-700 mb-2">Capabilities</p>
+                        <div className="flex flex-wrap gap-2">
+                          {['AI-Powered', 'Automated', 'Customizable'].map((tag, index) => (
+                            <span 
+                              key={index}
+                              className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs flex items-center"
+                            >
+                              <Globe className="w-3 h-3 mr-1" />
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex items-center justify-between pt-4 border-t">
+                        <span className="text-xl font-bold text-gray-900">${bot.price}</span>
+                        <div className="flex gap-2">
+                          <button 
+                            className="flex items-center px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors text-sm"
+                            onClick={() => setSelectedBot(bot)}
+                          >
+                            <Eye className="w-4 h-4 mr-1" />
+                            Details
+                          </button>
+                          <button 
+                            className="flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                            onClick={() => setSelectedBot(bot)}
+                          >
+                            <ShoppingCart className="w-4 h-4 mr-1" />
+                            Buy
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {/* Scroll Right Button */}
+              <button 
+                onClick={() => scroll('right', category.name)}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-600" />
+              </button>
             </div>
-
-            {/* Scroll Right Button */}
-            <button 
-              onClick={() => scroll('right', category.name)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
-            </button>
           </div>
-        </div>
-      ))}
+        ))}
 
-      {/* Purchase Modal */}
-      <BotPurchaseModal 
-        isOpen={!!selectedBot}
-        onClose={() => setSelectedBot(null)}
-        bot={selectedBot}
-      />
-    </div>
+        {/* Purchase Modal */}
+        <BotPurchaseModal 
+          isOpen={!!selectedBot}
+          onClose={() => setSelectedBot(null)}
+          bot={selectedBot}
+        />
+      </div>
     </>
   );
 };
 
 export default HorizontalBotCatalog;
+
+
