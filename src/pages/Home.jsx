@@ -384,38 +384,7 @@ const HorizontalBotCatalog = () => {
   const [selectedBot, setSelectedBot] = useState(null);
 
   const categories = [
-    {
-      name: "Skills & Recruitment",
-      bots: [
-        {
-          id: 101,
-          name: "Skills Evaluator AI",
-          description: "Automates skill assessments with instant results, tracking performance through detailed interviews and analysis.",
-          price: 299,
-          image: hr,
-          videoUrl: "https://www.youtube.com/embed/sample_skills_evaluator",
-          integrations: ['Google Sheet', 'Email']
-        },
-        {
-          id: 102,
-          name: "Interview Insights AI",
-          description: "Conducts automated interviews, analyzes responses, and generates comprehensive reports for HR decision-making.",
-          price: 349,
-          image: hr,
-          videoUrl: "https://www.youtube.com/embed/sample_interview_insights",
-          integrations: ['Airtable', 'Email', 'SMS']
-        },
-        {
-          id: 103,
-          name: "HR Scheduler AI",
-          description: "Streamlines interview scheduling, sends reminders, and keeps candidate information organized.",
-          price: 279,
-          image: hr,
-          videoUrl: "https://www.youtube.com/embed/sample_hr_scheduler",
-          integrations: ['Google Calendar', 'Airtable', 'Email', 'SMS']
-        }
-      ]
-    },
+   
     {
       name: "Customer Service",
       bots: [
@@ -425,11 +394,12 @@ const HorizontalBotCatalog = () => {
           description: "Seamlessly handles inquiries, books appointments, and provides personalized follow-ups across communication channels.",
           price: 329,
           image: healthcare,
-          videoUrl: "https://www.youtube.com/embed/sample_smart_receptionist",
+          videoUrl: "https://www.youtube.com/embed/IlxnPPsYu6Q",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         }
       ]
     },
+    
     {
       name: "Real Estate",
       bots: [
@@ -439,7 +409,7 @@ const HorizontalBotCatalog = () => {
           description: "Simplifies property search with tailored recommendations, efficient appointment scheduling, and preference filtering.",
           price: 399,
           image: realestate,
-          videoUrl: "https://www.youtube.com/embed/sample_property_finder",
+          videoUrl: "https://www.youtube.com/embed/wIF4TU2zDA0",
           integrations: ['Google Calendar', 'CRM (Airtable)', 'Email', 'SMS']
         },
         {
@@ -448,7 +418,7 @@ const HorizontalBotCatalog = () => {
           description: "Manages real estate appointments with precision, ensuring efficient communication and user detail tracking.",
           price: 359,
           image: realestate2,
-          videoUrl: "https://www.youtube.com/embed/sample_realty_scheduler",
+          videoUrl: "https://www.youtube.com/embed/ooUMBbTGLts",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         }
       ]
@@ -462,7 +432,7 @@ const HorizontalBotCatalog = () => {
           description: "Automates lead qualification, schedules appointments, and provides intelligent support for car sales processes.",
           price: 299,
           image: Buycar,
-          videoUrl: "https://www.youtube.com/embed/sample_car_lead_qualifier",
+          videoUrl: "https://www.youtube.com/embed/kmOkvmNFKCQ",
           integrations: ['Email', 'SMS', 'Google Calendar', 'Call Forwarding', 'CRM/Google Sheet']
         },
         {
@@ -471,11 +441,43 @@ const HorizontalBotCatalog = () => {
           description: "Matches customers with ideal vehicles, manages appointments, and streamlines the car sales inquiry process.",
           price: 329,
           image: sellcar,
-          videoUrl: "https://www.youtube.com/embed/sample_car_sales_recommender",
+          videoUrl: "https://www.youtube.com/embed/4icoRFLt6b0",
           integrations: ['Google Calendar', 'Real-Time Access', 'Email', 'SMS', 'CRM/Google Sheet']
         }
       ]
     },
+    {
+        name: "Skills & Recruitment",
+        bots: [
+          {
+            id: 101,
+            name: "Skills Evaluator AI",
+            description: "Automates skill assessments with instant results, tracking performance through detailed interviews and analysis.",
+            price: 299,
+            image: hr,
+            videoUrl: "https://www.youtube.com/embed/JGN5JVHBwQw",
+            integrations: ['Google Sheet', 'Email']
+          },
+          {
+            id: 102,
+            name: "Interview Insights AI",
+            description: "Conducts automated interviews, analyzes responses, and generates comprehensive reports for HR decision-making.",
+            price: 349,
+            image: hr,
+            videoUrl: "https://www.youtube.com/embed/JGN5JVHBwQw",
+            integrations: ['Airtable', 'Email', 'SMS']
+          },
+          {
+            id: 103,
+            name: "HR Scheduler AI",
+            description: "Streamlines interview scheduling, sends reminders, and keeps candidate information organized.",
+            price: 279,
+            image: hr,
+            videoUrl: "https://www.youtube.com/embed/OxyRMJbHq7g",
+            integrations: ['Google Calendar', 'Airtable', 'Email', 'SMS']
+          }
+        ]
+      },
     {
       name: "Specialized Services",
       bots: [
@@ -485,7 +487,7 @@ const HorizontalBotCatalog = () => {
           description: "Efficiently manages solar site visit bookings, provides product information, and ensures smooth follow-ups.",
           price: 299,
           image: solar,
-          videoUrl: "https://www.youtube.com/embed/sample_solar_scheduler",
+          videoUrl: "https://www.youtube.com/embed/GYUjMd5zzzw",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         },
         {
@@ -494,7 +496,7 @@ const HorizontalBotCatalog = () => {
           description: "Simplifies appointment scheduling for playschools with efficient communication and parent-friendly interfaces.",
           price: 249,
           image: playschoool,
-          videoUrl: "https://www.youtube.com/embed/sample_playschool_scheduler",
+          videoUrl: "https://www.youtube.com/embed/dtt4p8nLp4A",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         },
         {
@@ -503,7 +505,7 @@ const HorizontalBotCatalog = () => {
           description: "Streamlines hospital appointment booking with timely follow-ups and efficient patient communication.",
           price: 379,
           image: healthcare,
-          videoUrl: "https://www.youtube.com/embed/sample_hospital_scheduler",
+          videoUrl: "https://www.youtube.com/embed/Zcg6R90yrIY",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         },
         {
@@ -512,7 +514,7 @@ const HorizontalBotCatalog = () => {
           description: "Manages demo class scheduling and student engagement with seamless communication tools.",
           price: 269,
           image: english,
-          videoUrl: "https://www.youtube.com/embed/sample_education_scheduler",
+          videoUrl: "https://www.youtube.com/embed/GiPcaaXmXoI",
           integrations: ['Google Calendar', 'Google Sheet', 'Email', 'SMS']
         }
       ]
