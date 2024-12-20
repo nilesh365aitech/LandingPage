@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { 
-  Clock, 
-  Calendar, 
-  Phone, 
-  MessageCircle, 
+import React, { useState } from "react";
+import {
+  Clock,
+  Calendar,
+  Phone,
+  MessageCircle,
   CheckCircle,
   Star,
   ArrowRight,
@@ -12,16 +12,27 @@ import {
   Users,
   TrendingUp,
   Award,
-  Bell
-} from 'lucide-react';
+  Bell,
+} from "lucide-react";
+import { ScheduleMeetingModal } from "./Home";
 
 const EnhancedRealEstateLanding = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-
+  const [activeModal, setActiveModal] = useState(false);
+  const bot = {
+    id: 301,
+    name: "Property Finder AI",
+    description:
+      "Simplifies property search with tailored recommendations, efficient appointment scheduling, and preference filtering.",
+    price: 9,
+    image: "/src/assets/2.png",
+    videoUrl: "https://www.youtube.com/embed/wIF4TU2zDA0",
+    integrations: ["Google Calendar", "CRM (Airtable)", "Email", "SMS"],
+  };
   return (
     <div className="min-h-screen bg-white">
       {/* Announcement Banner */}
-      <div className="bg-blue-900 text-white px-4 py-3 text-center">
+      {/* <div className="bg-blue-900 text-white px-4 py-3 text-center">
         <div className="flex items-center justify-center gap-2">
           <Bell className="w-4 h-4" />
           <span>Limited Time Offer: Get 3 Months Free + Premium Features Access</span>
@@ -29,7 +40,7 @@ const EnhancedRealEstateLanding = () => {
             Claim Now
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Hero Section */}
       <div className="bg-gradient-to-b from-blue-50 to-white">
@@ -38,13 +49,17 @@ const EnhancedRealEstateLanding = () => {
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 mb-4">
                 <Award className="w-5 h-5 text-blue-600" />
-                <span className="text-blue-600 font-semibold">#1 Rated Real Estate AI Assistant</span>
+                <span className="text-blue-600 font-semibold">
+                  #1 Rated Real Estate AI Assistant
+                </span>
               </div>
               <h1 className="text-5xl font-bold text-gray-900 mb-6">
-                Turn Missed Calls into Closed Deals <span className="text-blue-600">While You Sleep</span>
+                Turn Missed Calls into Closed Deals{" "}
+                <span className="text-blue-600">While You Sleep</span>
               </h1>
               <p className="text-xl text-gray-600 mb-8">
-                Your AI assistant handles unlimited calls, schedules viewings, and qualifies leads 24/7 - so you never miss a potential sale.
+                Your AI assistant handles unlimited calls, schedules viewings,
+                and qualifies leads 24/7 - so you never miss a potential sale.
               </p>
               <div className="flex items-center gap-4 mb-8">
                 <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
@@ -85,7 +100,10 @@ const EnhancedRealEstateLanding = () => {
                   <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               </div>
-              <button className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <button
+                className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                onClick={() => setActiveModal(true)}
+              >
                 Try Interactive Demo
               </button>
             </div>
@@ -94,22 +112,40 @@ const EnhancedRealEstateLanding = () => {
       </div>
 
       {/* Social Proof Bar */}
-      <div className="border-y bg-white">
+      {/* <div className="border-y bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-center">
-            <div className="text-gray-600">Trusted by 10,000+ Real Estate Professionals</div>
+            <div className="text-gray-600">
+              Trusted by 10,000+ Real Estate Professionals
+            </div>
             <div className="flex items-center gap-8">
-              <img src="/api/placeholder/100/40" alt="RE/MAX" className="h-8 object-contain" />
-              <img src="/api/placeholder/100/40" alt="Century 21" className="h-8 object-contain" />
-              <img src="/api/placeholder/100/40" alt="Keller Williams" className="h-8 object-contain" />
-              <img src="/api/placeholder/100/40" alt="Coldwell Banker" className="h-8 object-contain" />
+              <img
+                src="/api/placeholder/100/40"
+                alt="RE/MAX"
+                className="h-8 object-contain"
+              />
+              <img
+                src="/api/placeholder/100/40"
+                alt="Century 21"
+                className="h-8 object-contain"
+              />
+              <img
+                src="/api/placeholder/100/40"
+                alt="Keller Williams"
+                className="h-8 object-contain"
+              />
+              <img
+                src="/api/placeholder/100/40"
+                alt="Coldwell Banker"
+                className="h-8 object-contain"
+              />
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* ROI Calculator Section */}
-      <div className="py-20 bg-gray-50">
+      <div className="py-20 bg-gray-50 border-y">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -125,25 +161,43 @@ const EnhancedRealEstateLanding = () => {
                 <h3 className="font-semibold mb-4">Your Current Numbers</h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Average Monthly Missed Calls</label>
-                    <input type="number" className="w-full border rounded-lg px-3 py-2" placeholder="20" />
+                    <label className="block text-sm text-gray-600 mb-1">
+                      Average Monthly Missed Calls
+                    </label>
+                    <input
+                      type="number"
+                      className="w-full border rounded-lg px-3 py-2"
+                      placeholder="20"
+                    />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Average Deal Value</label>
-                    <input type="number" className="w-full border rounded-lg px-3 py-2" placeholder="$10,000" />
+                    <label className="block text-sm text-gray-600 mb-1">
+                      Average Deal Value
+                    </label>
+                    <input
+                      type="number"
+                      className="w-full border rounded-lg px-3 py-2"
+                      placeholder="$10,000"
+                    />
                   </div>
                 </div>
               </div>
               <div className="bg-blue-50 rounded-lg p-6">
-                <h3 className="font-semibold mb-4">Your Potential with AI Assistant</h3>
+                <h3 className="font-semibold mb-4">
+                  Your Potential with AI Assistant
+                </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span>Additional Monthly Revenue</span>
-                    <span className="text-2xl font-bold text-blue-600">$25,000</span>
+                    <span className="text-2xl font-bold text-blue-600">
+                      $25,000
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>ROI</span>
-                    <span className="text-2xl font-bold text-green-600">2,400%</span>
+                    <span className="text-2xl font-bold text-green-600">
+                      2,400%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -160,14 +214,16 @@ const EnhancedRealEstateLanding = () => {
           </h2>
           <div className="grid grid-cols-2 gap-8">
             <div className="p-8 bg-gray-50 rounded-lg">
-              <h3 className="text-xl font-semibold mb-6 text-gray-500">Without AI Assistant</h3>
+              <h3 className="text-xl font-semibold mb-6 text-gray-500">
+                Without AI Assistant
+              </h3>
               <ul className="space-y-4">
                 {[
-                  'Miss leads while with clients or sleeping',
-                  'Manually schedule and reschedule viewings',
-                  'Waste time on unqualified leads',
-                  'Limited to working hours only',
-                  'Risk losing leads to faster-responding agents'
+                  "Miss leads while with clients or sleeping",
+                  "Manually schedule and reschedule viewings",
+                  "Waste time on unqualified leads",
+                  "Limited to working hours only",
+                  "Risk losing leads to faster-responding agents",
                 ].map((item, index) => (
                   <li key={index} className="flex items-center text-gray-500">
                     <span className="w-5 h-5 mr-3 flex-shrink-0">✗</span>
@@ -177,14 +233,16 @@ const EnhancedRealEstateLanding = () => {
               </ul>
             </div>
             <div className="p-8 bg-blue-50 rounded-lg border-2 border-blue-600">
-              <h3 className="text-xl font-semibold mb-6 text-blue-900">With AI Assistant</h3>
+              <h3 className="text-xl font-semibold mb-6 text-blue-900">
+                With AI Assistant
+              </h3>
               <ul className="space-y-4">
                 {[
-                  'Never miss a lead - 24/7 instant response',
-                  'Automated scheduling synced to your calendar',
-                  'Smart lead qualification before your involvement',
-                  'Work around the clock automatically',
-                  'Always first to respond to new leads'
+                  "Never miss a lead - 24/7 instant response",
+                  "Automated scheduling synced to your calendar",
+                  "Smart lead qualification before your involvement",
+                  "Work around the clock automatically",
+                  "Always first to respond to new leads",
                 ].map((item, index) => (
                   <li key={index} className="flex items-center text-blue-900">
                     <CheckCircle className="w-5 h-5 mr-3 text-green-600 flex-shrink-0" />
@@ -211,18 +269,29 @@ const EnhancedRealEstateLanding = () => {
             </div>
             <div className="bg-white rounded-xl shadow-lg p-8">
               <div className="flex justify-center mb-4">
-                {[1,2,3,4,5].map((star) => (
-                  <Star key={star} className="w-6 h-6 text-yellow-400 fill-current" />
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className="w-6 h-6 text-yellow-400 fill-current"
+                  />
                 ))}
               </div>
               <blockquote className="text-xl text-gray-900 mb-6">
-                "I was skeptical at first, but this AI assistant has been a game-changer. Last month, it handled 127 calls while I was showing properties, resulting in 14 new listings!"
+                "I was skeptical at first, but this AI assistant has been a
+                game-changer. Last month, it handled 127 calls while I was
+                showing properties, resulting in 14 new listings!"
               </blockquote>
               <div className="flex items-center gap-4">
-                <img src="/api/placeholder/48/48" alt="Agent" className="rounded-full" />
+                <img
+                  src="/api/placeholder/48/48"
+                  alt="Agent"
+                  className="rounded-full"
+                />
                 <div>
                   <div className="font-semibold">Michael Rodriguez</div>
-                  <div className="text-gray-600">Top 1% Producer, Los Angeles</div>
+                  <div className="text-gray-600">
+                    Top 1% Producer, Los Angeles
+                  </div>
                 </div>
               </div>
             </div>
@@ -267,6 +336,12 @@ const EnhancedRealEstateLanding = () => {
           </div>
         </div>
       </div>
+      <ScheduleMeetingModal
+        isOpen={activeModal}
+        onClose={() => setActiveModal(false)}
+        bot={bot}
+        mode="schedule"
+      />
     </div>
   );
 };

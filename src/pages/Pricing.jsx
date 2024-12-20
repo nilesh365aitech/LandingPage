@@ -154,13 +154,12 @@ const Pricing = () => {
             </button>
           </div>
         </div>
-        
       </div>
       {/* <Pricing1/> */}
-      <Pricing0/>
-    <PricingTable/>
-    <IntegrationsTable/>
-    <SupportTable/>
+      <Pricing0 />
+      <PricingTable />
+      <IntegrationsTable />
+      <SupportTable />
     </>
   );
 };
