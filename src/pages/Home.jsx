@@ -404,7 +404,6 @@ export const BotPurchaseModal = ({ isOpen, onClose, bot }) => {
 
 const HorizontalBotCatalog = () => {
   const [selectedBot, setSelectedBot] = useState(null);
-  console.log(selectedBot, "raju");
 
   const categories = [
     {

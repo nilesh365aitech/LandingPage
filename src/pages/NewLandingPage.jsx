@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { 
-  Clock, 
-  Calendar, 
-  Phone, 
-  MessageCircle, 
+import React, { useState } from "react";
+import {
+  Clock,
+  Calendar,
+  Phone,
+  MessageCircle,
   CheckCircle,
   Star,
   ArrowRight,
@@ -13,19 +13,18 @@ import {
   Award,
   Bell,
   DollarSign,
-  ArrowUpRight
-} from 'lucide-react';
-import EnhancedRealEstateLanding from './Landing1';
-import RealEstateLanding from './Landing2';
+  ArrowUpRight,
+} from "lucide-react";
+import EnhancedRealEstateLanding from "./Landing1";
+import RealEstateLanding from "./Landing2";
+import PlanLanding from "./PlanLanding";
 
 const NewLandingPage = () => {
- 
-
   return (
     <>
-   
-    <EnhancedRealEstateLanding/>
-    <RealEstateLanding/>
+      <EnhancedRealEstateLanding />
+      <PlanLanding />
+      <RealEstateLanding />
     </>
   );
 };

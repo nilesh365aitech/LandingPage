@@ -19,6 +19,21 @@ import { ScheduleMeetingModal } from "./Home";
 const EnhancedRealEstateLanding = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [missedCalls, setMissedCalls] = useState(20);
+  const [dealValue, setDealValue] = useState(10000);
+  const aiAssistantCost = 500; // Monthly cost of AI Assistant
+
+  const dealConversionRate = 0.015; // 1.5%
+
+  // Calculate Additional Monthly Revenue
+  const additionalRevenue = Math.round(
+    missedCalls * dealConversionRate * dealValue
+  );
+
+  // Calculate ROI
+  const roi = Math.round(
+    ((additionalRevenue - aiAssistantCost) / aiAssistantCost) * 100
+  );
   const bot = {
     id: 301,
     name: "Property Finder AI",
@@ -66,7 +81,10 @@ const EnhancedRealEstateLanding = () => {
                   Start 30-Day Free Trial
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </button>
-                <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center">
+                <button
+                  className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center"
+                  onClick={() => setIsVideoModalOpen(true)}
+                >
                   Watch 2-Min Demo
                   <Play className="w-5 h-5 ml-2" />
                 </button>
@@ -143,7 +161,29 @@ const EnhancedRealEstateLanding = () => {
           </div>
         </div>
       </div> */}
-
+      <div className="bg-[#2563EB] py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              See It In Action
+            </h2>
+            <p className="text-blue-100">
+              Watch how our AI Assistant transforms your workflow
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="aspect-video bg-gradient-to-r from-blue-700 to-blue-600 rounded-xl overflow-hidden shadow-2xl">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/watch?v=wIF4TU2zDA0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
       {/* ROI Calculator Section */}
       <div className="py-20 bg-gray-50 border-y">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -157,6 +197,7 @@ const EnhancedRealEstateLanding = () => {
           </div>
           <div className="bg-white rounded-xl shadow-lg p-8">
             <div className="grid grid-cols-2 gap-8">
+              {/* User Input Section */}
               <div>
                 <h3 className="font-semibold mb-4">Your Current Numbers</h3>
                 <div className="space-y-4">
@@ -168,6 +209,8 @@ const EnhancedRealEstateLanding = () => {
                       type="number"
                       className="w-full border rounded-lg px-3 py-2"
                       placeholder="20"
+                      value={missedCalls}
+                      onChange={(e) => setMissedCalls(Number(e.target.value))}
                     />
                   </div>
                   <div>
@@ -178,10 +221,14 @@ const EnhancedRealEstateLanding = () => {
                       type="number"
                       className="w-full border rounded-lg px-3 py-2"
                       placeholder="$10,000"
+                      value={dealValue}
+                      onChange={(e) => setDealValue(Number(e.target.value))}
                     />
                   </div>
                 </div>
               </div>
+
+              {/* Results Section */}
               <div className="bg-blue-50 rounded-lg p-6">
                 <h3 className="font-semibold mb-4">
                   Your Potential with AI Assistant
@@ -190,13 +237,13 @@ const EnhancedRealEstateLanding = () => {
                   <div className="flex justify-between items-center">
                     <span>Additional Monthly Revenue</span>
                     <span className="text-2xl font-bold text-blue-600">
-                      $25,000
+                      ${additionalRevenue.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span>ROI</span>
                     <span className="text-2xl font-bold text-green-600">
-                      2,400%
+                      {roi.toLocaleString()}%
                     </span>
                   </div>
                 </div>
@@ -256,7 +303,7 @@ const EnhancedRealEstateLanding = () => {
       </div>
 
       {/* Success Stories Carousel */}
-      <div className="bg-white py-20">
+      {/* <div className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">
@@ -297,7 +344,7 @@ const EnhancedRealEstateLanding = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Guarantee Section */}
       {/* <div className="bg-blue-900 text-white py-20">
@@ -342,6 +389,54 @@ const EnhancedRealEstateLanding = () => {
         bot={bot}
         mode="schedule"
       />
+      {isVideoModalOpen && (
+        <div className="fixed inset-0 bg-blue-900 bg-opacity-50 flex justify-center items-center z-50">
+          <div
+            className="relative bg-white rounded-lg shadow-lg w-[90%] max-w-2xl p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-3 right-3 text-blue-600 hover:text-blue-800 transition focus:outline-none"
+              onClick={() => setIsVideoModalOpen(false)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="text-center mb-4">
+              <h2 className="text-2xl font-bold text-blue-600">
+                Watch the Demo
+              </h2>
+              <p className="text-blue-500">
+                Explore the interactive demo by watching this video.
+              </p>
+            </div>
+            <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md">
+              <iframe
+                width="100%"
+                height="400px"
+                src="https://www.youtube.com/watch?v=wIF4TU2zDA0"
+                title="Interactive Demo"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="rounded-lg"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
