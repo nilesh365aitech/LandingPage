@@ -8,6 +8,7 @@ import {
   Sparkles,
   Trophy,
 } from "lucide-react";
+import PlanLanding from "./PlanLanding";
 
 const PlanDetails = () => {
   const highlights = [
@@ -77,7 +78,7 @@ const PlanDetails = () => {
                 ))}
               </div>
             </div>
-            <div className="lg:ml-auto">
+            {/* <div className="lg:ml-auto">
               <div className="bg-white text-blue-900 p-8 rounded-2xl shadow-2xl">
                 <div className="text-center">
                   <div className="text-sm font-medium text-blue-600 mb-2">
@@ -121,7 +122,70 @@ const PlanDetails = () => {
                   </p>
                 </div>
               </div>
+            </div> */}
+            <div>
+              <img
+                src="/bot.png"
+                alt=""
+                className="animate-bounce animate-infinite"
+              />
             </div>
+          </div>
+        </div>
+      </div>
+      <PlanLanding />
+
+      <div className="bg-gradient-to-b from-blue-900 to-blue-800 py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              See It In Action
+            </h2>
+            <p className="text-blue-100">
+              Watch how our AI Assistant transforms your workflow
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="aspect-video bg-gradient-to-r from-blue-700 to-blue-600 rounded-xl overflow-hidden shadow-2xl">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/wIF4TU2zDA0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="py-16 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Everything You Get
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              "Never miss a lead - 24/7 instant response",
+              "Automated scheduling synced to your calendar",
+              "Smart lead qualification before your involvement",
+              "Work around the clock automatically",
+              "Always first to respond to new leads",
+              "Customizable response templates",
+              "Integration with your existing tools",
+              "Detailed analytics and reporting",
+              "Priority support",
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-white rounded-lg border border-blue-100"
+              >
+                <div className="bg-blue-600 rounded-full p-1">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-gray-800">{feature}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -154,59 +218,6 @@ const PlanDetails = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="bg-gradient-to-b from-blue-900 to-blue-800 py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              See It In Action
-            </h2>
-            <p className="text-blue-100">
-              Watch how our AI Assistant transforms your workflow
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="aspect-video bg-gradient-to-r from-blue-700 to-blue-600 rounded-xl overflow-hidden shadow-2xl">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/wIF4TU2zDA0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="py-16 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Everything You Get
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              "Never miss a lead - 24/7 instant response",
-              "Automated scheduling synced to your calendar",
-              "Smart lead qualification before your involvement",
-              "Work around the clock automatically",
-              "Always first to respond to new leads",
-              "Customizable response templates",
-              "Integration with your existing tools",
-              "Detailed analytics and reporting",
-              "Priority support",
-            ].map((feature, idx) => (
-              <div
-                key={idx}
-                className="flex items-center gap-4 p-4 bg-gradient-to-r from-blue-50 to-white rounded-lg border border-blue-100"
-              >
-                <div className="bg-blue-600 rounded-full p-1">
-                  <Check className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-gray-800">{feature}</span>
               </div>
             ))}
           </div>
