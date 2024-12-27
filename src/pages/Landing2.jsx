@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Play,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const RealEstateLanding = () => {
   return (
@@ -168,9 +169,11 @@ const RealEstateLanding = () => {
             Join thousands of successful real estate agents who have transformed
             their business with AI assistance.
           </p>
-          <button className="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 font-semibold">
-            Start Your Free Trial
-          </button>
+          <Link to={"#"}>
+            <button className="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 font-semibold">
+              Start Your Free Trial
+            </button>
+          </Link>
         </div>
       </div>
     </div>

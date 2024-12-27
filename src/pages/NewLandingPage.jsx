@@ -23,7 +23,7 @@ const NewLandingPage = () => {
   return (
     <>
       <EnhancedRealEstateLanding />
-      <PlanLanding />
+      {/* <PlanLanding /> */}
       <RealEstateLanding />
     </>
   );
