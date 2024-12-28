@@ -24,6 +24,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import Assistant from "./Assistant";
 import LoginPage from "./Login";
+import { baseURL } from "../contstant/URLS";
 
 const EnhancedRealEstateLanding = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -96,7 +97,7 @@ const EnhancedRealEstateLanding = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:7009/api/users/login", {
+      const res = await fetch(`${baseURL}/api/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

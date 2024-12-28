@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
+import { baseURL } from "../contstant/URLS";
 
 const BlogDetail = () => {
   const [searchParams] = useSearchParams();
@@ -15,7 +16,7 @@ const BlogDetail = () => {
         setLoading(true);
         // Adjust this endpoint to match your API
         const response = await axios.get(
-          `http://localhost:7009/api/blogs/getBlogById?id=${id}`
+          `${baseURL}/api/blogs/getBlogById?id=${id}`
         );
         setBlog(response.data);
       } catch (err) {

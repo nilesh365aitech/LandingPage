@@ -10,6 +10,7 @@ import {
   Search,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../contstant/URLS";
 
 const AllBlogs = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const AllBlogs = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:7009/api/blogs/getAllBlogs?page=${page}`
+        `${baseURL}/api/blogs/getAllBlogs?page=${page}`
       );
       setBlogs(response.data.posts);
       setCurrentPage(response.data.currentPage);
