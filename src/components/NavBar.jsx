@@ -5,6 +5,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigationItems = [
+    // { name: "Home", path: "/" },
+    // { name: "Landing", path: "/newlandingpage" },
+    // { name: "Pricing", path: "/pricing" },
+    // { name: "Plan Details", path: "/plan-details" },
+    // { name: "Blogs", path: "/all-blogs" },
     { name: "Home", path: "/" },
     { name: "Bots", path: "/newlandingpage" },
     { name: "Pricing", path: "/pricing" },
