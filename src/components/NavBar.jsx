@@ -6,9 +6,8 @@ const Navbar = () => {
 
   const navigationItems = [
     { name: "Home", path: "/" },
-    { name: "Landing", path: "/newlandingpage" },
+    { name: "Bots", path: "/newlandingpage" },
     { name: "Pricing", path: "/pricing" },
-    { name: "Plan Details", path: "/plan-details" },
     { name: "Blogs", path: "/all-blogs" },
   ];
 
